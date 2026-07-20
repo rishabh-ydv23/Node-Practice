@@ -13,6 +13,10 @@ const BookStore = [
 app.use(express.json());
 
 // localhost:3000/book/3
+// yhi par agr hum app.use(/book)==app.use(/book/3) dono ka same output aayega saari books leing get ke saath  aisa
+    // nhi hoga
+    // route match honge: app.use
+    // app.get app.post app.patch app.put app.delete
 
 app.get("/book", (req,res)=>{
 
@@ -23,7 +27,7 @@ app.get("/book/:id", (req,res)=>{
 
     const id = parseInt(req.params.id);
     // console.log(typeof req.params.id)
-    const Book =  BookStore.find(info=> info.id===id);
+    const Book =  BookStore.find(info=> info.id===id);      //Yani har object ko info naam se receive karo aur check karo
     res.send(Book); 
 })
 
