@@ -6,44 +6,43 @@ const app = express();
 // app.use(route, RH, [RH, RH, RH], RH, RH)
 // Middleware: mw-> mw-> mw-> RequestHandler
 
-// app.use("/user", (req,res,next)=>{
+app.use("/user", (req,res,next)=>{
     
-//     console.log("first");
-//     // res.send("Hello Ji");
-//     next();
-// })
+    console.log("first");
+    // res.send("Hello Ji");
+    next();
+})
 
-// app.use("/user", (req,res,next)=>{
+app.use("/user", (req,res,next)=>{
     
-//     console.log("Second");
-//     // res.send("I am second");
-//     next();
-// })
+    console.log("Second");
+    // res.send("I am second");
+    next();
+})
 
-// app.use("/user",(req,res,next)=>{
-//     console.log("Third")
-//     res.send("I am Third");
-//     // next();
-// })
+app.use("/user",(req,res,next)=>{
+    console.log("Third")
+    res.send("I am Third");
+    // next();
+})
 
-// app.use("/user",(req,res,next)=>{
-//     console.log("fourth")
-//     res.send("I am Fourth");  
-// }
-// )
+app.use("/user",(req,res,next)=>{
+    console.log("fourth")
+    res.send("I am Fourth");  
+}
+)
 
 // Maintain logs through middleware
 
+        //Jitni bhi request /user se start hogi, sabse pehle ye middleware chalega.
 app.use("/user",(req,res,next)=>{
     
     // console.log(`${Date.now()} ${req.method} ${req.url}`);
     // // Authorization wagera kar sakta hu
     // next();
     // 30 line of code
-    next();
+    next();                                 //"Mera kaam ho gaya. Ab agla middleware ya route handler chalao."
 })
-
-
 
 app.get("/user", (req,res)=>{
 
@@ -55,11 +54,10 @@ app.post("/user", (req,res)=>{
     res.send("Info saved");
 })
 
-
 app.delete("/user", (req,res)=>{
-    
+  
     res.send("Info Deleted");
-})
+})          
 
 
 

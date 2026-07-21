@@ -38,7 +38,7 @@ app.get("/food", (req,res)=>{
 
 
 // Authenticate admin here
-// app.use("/admin",Auth)
+// app.use("/admin",Auth)       //auth = poora auth file wala code 
 
 
 app.post("/admin", Auth, (req,res)=>{
