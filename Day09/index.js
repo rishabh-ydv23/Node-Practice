@@ -35,19 +35,22 @@ const AddToCart = [];
 app.get("/food", (req,res)=>{
     res.status(200).send(FoodMenu);
 })
-
+ 
 
 // Authenticate admin here
-// app.use("/admin",Auth)       //auth = poora auth file wala code 
+// app.use("/admin",Auth)
 
 
 app.post("/admin", Auth, (req,res)=>{
 
-    
+    try{
     FoodMenu.push(req.body);
     res.status(201).send("Item Added Succesfully");
+    }
+    catch(err){
+        res.send(err);
+    }
     
-
 })
 
 app.delete("/admin/:id", Auth, (req,res)=>{
@@ -93,6 +96,62 @@ app.patch("/admin", Auth, (req,res)=>{
 })
 
 // localhost:3000/admin
+
+app.post("/user/:id", (req,res)=>{
+
+    const id = parseInt(req.params.id);
+
+    const foodItem = FoodMenu.find(item=> item.id===id);
+
+    if(foodItem){
+        AddToCart.push(foodItem);
+        res.status(200).send("Item added successfully");
+    }
+    else{
+        res.send("Item Out of stack");
+    }
+})
+
+app.delete("/user/:id", (req,res)=>{
+
+    try{
+    const id = parseInt(req.params.id);
+
+    const index = AddToCart.findIndex(item=>item.id===id);
+
+    if(index!=-1){
+        AddToCart.splice(index,1);
+        res.send("Item removed succesfully");
+    }
+    else{
+        res.send("Item is not persent in cart");
+    }}
+    catch(err){
+        res.send("Some error:" + err);
+    }
+})
+
+app.get("/user",(req,res)=>{
+
+    if(AddToCart.length==0)
+        res.send("Cart is Empty")
+    else
+    res.send(AddToCart);
+})
+
+app.get("/dummy",(req,res)=>{
+
+    try{
+    // JSON.parse({"name":"Rohit"});
+    throw new Error('BROKEN')
+    res.send("Hello Coder");
+    }
+    catch(err){
+        res.send("Some error Occured "+err);
+    }
+
+   
+})
 
 
 
